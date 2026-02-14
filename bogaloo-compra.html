@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart 2 Electric Boogaloo - MSCHF</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .header {
+            padding: 20px;
+            border-bottom: 2px solid #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            letter-spacing: 0.3rem;
+        }
+
+        .back-btn {
+            background: #fff;
+            color: #000;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            border: 2px solid #fff;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+
+        .image-section {
+            border: 3px solid #fff;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: #ff0000;
+            color: #fff;
+            padding: 20px 40px;
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 0.2rem;
+            border: 3px solid #fff;
+            transform: rotate(-5deg);
+            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .info-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .product-title {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+            line-height: 1.2;
+        }
+
+        .drop-number {
+            color: #ff0000;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            letter-spacing: 0.15rem;
+        }
+
+        .price-box {
+            background: #111;
+            border: 3px solid #fff;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .price {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #00ff00;
+        }
+
+        .price-label {
+            font-size: 0.9rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+        }
+
+        .product-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .spec-item {
+            background: #111;
+            border: 2px solid #333;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .spec-label {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            margin-bottom: 10px;
+        }
+
+        .spec-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .cta-button {
+            width: 100%;
+            padding: 25px;
+            background: #fff;
+            color: #000;
+            border: 3px solid #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .description-section {
+            border-top: 3px solid #fff;
+            padding-top: 60px;
+        }
+
+        .description-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+        }
+
+        .description-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccc;
+            max-width: 900px;
+        }
+
+        .description-content p {
+            margin-bottom: 25px;
+        }
+
+        .highlight {
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        .features-list {
+            background: #111;
+            border: 3px solid #fff;
+            padding: 40px;
+            margin-top: 40px;
+        }
+
+        .features-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+            color: #00ff00;
+        }
+
+        .feature-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #333;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-item:last-child {
+            border-bottom: none;
+        }
+
+        .feature-item::before {
+            content: "?";
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .product-title {
+                font-size: 2rem;
+            }
+
+            .price {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>MSCHF</h1>
+        <a href="#" class="back-btn" onclick="history.back(); return false;">? Volver</a>
+    </header>
+
+    <div class="container">
+        <div class="product-grid">
+            <div class="image-section">
+                <div class="status-badge">SOLD OUT</div>
+                <img src="bogaloo-2.png" alt="Heart 2 Electric Boogaloo" class="product-image">
+            </div>
+
+            <div class="info-section">
+                <div class="drop-number">DROP #69 • EDICION ESPECIAL SAN VALENTIN</div>
+                <h1 class="product-title">Heart 2 Electric Boogaloo</h1>
+                
+                <div class="price-box">
+                    <div class="price-label">Precio Original</div>
+                    <div class="price">$2,140</div>
+                </div>
+
+                <div class="product-specs">
+                    <div class="spec-item">
+                        <div class="spec-label">Edicion</div>
+                        <div class="spec-value">4 Unidades</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Lanzamiento</div>
+                        <div class="spec-value">Feb 2022</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Categoria</div>
+                        <div class="spec-value">Dispositivo Medico</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Estado</div>
+                        <div class="spec-value" style="color: #ff0000;">Agotado</div>
+                    </div>
+                </div>
+
+                <button class="cta-button">AGOTADO</button>
+            </div>
+        </div>
+
+        <div class="description-section">
+            <h2 class="description-title">De Que Trata Este Drop?</h2>
+            
+            <div class="description-content">
+                <p>
+                    <span class="highlight">Heart 2 Electric Boogaloo</span> es un desfibrilador externo automatico (DEA) real y completamente funcional, pero con un giro MSCHF: esta diseñado para "curar corazones rotos" tanto fisica como metaforicamente.
+                </p>
+
+                <p>
+                    Lanzado el <span class="highlight">Dia de San Valentin 2022</span> como el Drop #69 (guiño caracteristico de MSCHF), este no es un producto de broma. Es un <span class="highlight">dispositivo medico certificado por la FDA</span> que puede salvar vidas en caso de paro cardiaco subito.
+                </p>
+
+                <p>
+                    La idea detras del drop es doble: primero, hacer una declaracion sobre como el capitalismo y la cultura de consumo pueden "romper corazones" de manera literal y figurada. Segundo, democratizar el acceso a equipos medicos que normalmente estan reservados para instituciones, poniendo el poder de salvar vidas literalmente en las manos del consumidor.
+                </p>
+
+                <p>
+                    Solo se produjeron <span class="highlight">4 unidades</span>, cada una vendida por $2,140 USD. El precio representa aproximadamente el costo real de un desfibrilador medico, sin el markup tradicional de hospitales e instituciones.
+                </p>
+
+                <p>
+                    Este drop encapsula perfectamente la filosofia MSCHF: tomar algo serio (un dispositivo medico que salva vidas), envolverlo en ironia y comentario social, pero mantener su funcionalidad real y utilidad practica.
+                </p>
+            </div>
+
+            <div class="features-list">
+                <h3 class="features-title">Especificaciones Tecnicas</h3>
+                <div class="feature-item">Desfibrilador Externo Automatico (DEA) totalmente funcional</div>
+                <div class="feature-item">Certificado por la FDA para uso de emergencia</div>
+                <div class="feature-item">Incluye instrucciones de voz paso a paso para uso en emergencias</div>
+                <div class="feature-item">Diseño personalizado con branding MSCHF</div>
+                <div class="feature-item">Incluye pads de electrodo y bateria de larga duracion</div>
+                <div class="feature-item">Analisis automatico del ritmo cardiaco</div>
+                <div class="feature-item">Packaging especial edicion San Valentin</div>
+                <div class="feature-item">Certificado de autenticidad numerado (1-4)</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Agregar un efecto visual al badge
+        const badge = document.querySelector('.status-badge');
+        setInterval(() => {
+            badge.style.transform = `rotate(${-5 + Math.random() * 2}deg)`;
+        }, 2000);
+    </script>
+</body>
+</html>

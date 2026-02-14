@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSCHF - Inicio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .header {
+            padding: 20px;
+            border-bottom: 2px solid #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            letter-spacing: 0.3rem;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            padding: 10px 20px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav a:hover {
+            border: 2px solid #fff;
+            background: #fff;
+            color: #000;
+        }
+
+        .nav a.active {
+            border: 2px solid #fff;
+        }
+
+        .hero {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 2px solid #fff;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            letter-spacing: 0.5rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% {
+                text-shadow: 2px 2px #ff0000, -2px -2px #00ff00;
+            }
+            25% {
+                text-shadow: -2px 2px #ff0000, 2px -2px #00ff00;
+            }
+            50% {
+                text-shadow: 2px -2px #ff0000, -2px 2px #00ff00;
+            }
+            75% {
+                text-shadow: -2px -2px #ff0000, 2px 2px #00ff00;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #ccc;
+            margin-bottom: 50px;
+            letter-spacing: 0.2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 50px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+            border: 3px solid #fff;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #000;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+            text-align: center;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        .about-text p {
+            margin-bottom: 25px;
+        }
+
+        .highlight {
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        .principles-box {
+            background: #111;
+            border: 3px solid #fff;
+            padding: 40px;
+        }
+
+        .principles-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+            color: #00ff00;
+        }
+
+        .principle-item {
+            padding: 20px 0;
+            border-bottom: 1px solid #333;
+            font-size: 1rem;
+        }
+
+        .principle-item:last-child {
+            border-bottom: none;
+        }
+
+        .principle-number {
+            color: #ff0000;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 80px;
+            padding-top: 80px;
+            border-top: 2px solid #fff;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 40px 20px;
+            border: 3px solid #fff;
+            background: #111;
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            background: #fff;
+            color: #000;
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #00ff00;
+            margin-bottom: 15px;
+        }
+
+        .stat-box:hover .stat-number {
+            color: #ff0000;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+        }
+
+        .manifesto-section {
+            margin-top: 80px;
+            padding: 60px;
+            background: #111;
+            border: 5px solid #fff;
+            text-align: center;
+        }
+
+        .manifesto-quote {
+            font-size: 1.8rem;
+            line-height: 1.6;
+            font-style: italic;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        .manifesto-author {
+            font-size: 1.2rem;
+            color: #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-section {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="logo.png" alt="MSCHF" class="logo">
+        <nav class="nav">
+            <a href="#" class="active">Inicio</a>
+            <a href="mschf.html">Drops Recientes</a>
+            <a href="archivo.html">Archivo Historico</a>
+            <a href="#sobre-mschf">Sobre MSCHF</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1 class="hero-title">MSCHF</h1>
+		  <img src="logo.png" alt="MSCHF" class="logo">
+        <p class="hero-subtitle">Arte. Comercio. Caos.</p>
+        <a href="mschf.html" class="cta-button">Ver Drops</a>
+    </section>
+
+    <section class="content-section" id="sobre-mschf">
+        <h2 class="section-title">Que es MSCHF?</h2>
+        
+        <div class="about-grid">
+            <div class="about-text">
+                <p>
+                    <span class="highlight">MSCHF</span> (pronunciado "mischief" - travesura) es un colectivo artistico de Brooklyn que lanza "drops" cada dos semanas. Pero no son drops comunes: son proyectos que desafian las normas del arte, el comercio y la cultura digital.
+                </p>
+
+                <p>
+                    Fundado en 2016, MSCHF opera en la interseccion entre <span class="highlight">arte conceptual, cultura de consumo y comentario social</span>. Cada drop es una declaracion, una provocacion o un experimento que cuestiona como interactuamos con productos, marcas y tecnologia.
+                </p>
+
+                <p>
+                    No son una marca de moda. No son una galeria de arte. No son una startup tech. Son todo eso y nada de eso al mismo tiempo. MSCHF existe para <span class="highlight">romper las reglas del juego</span> mientras juegan mejor que nadie.
+                </p>
+            </div>
+
+            <div class="principles-box">
+                <h3 class="principles-title">Filosofia MSCHF</h3>
+                <div class="principle-item">
+                    <span class="principle-number">01.</span>
+                    Todo es un producto, todo es arte
+                </div>
+                <div class="principle-item">
+                    <span class="principle-number">02.</span>
+                    La provocacion es el medio
+                </div>
+                <div class="principle-item">
+                    <span class="principle-number">03.</span>
+                    El capitalismo es nuestro lienzo
+                </div>
+                <div class="principle-item">
+                    <span class="principle-number">04.</span>
+                    La viralidad es parte del arte
+                </div>
+                <div class="principle-item">
+                    <span class="principle-number">05.</span>
+                    Las reglas existen para romperse
+                </div>
+            </div>
+        </div>
+
+        <div class="about-text">
+            <p>
+                Desde <span class="highlight">Jesus Shoes</span> (Nike con agua bendita del rio Jordan) hasta <span class="highlight">Satan Shoes</span> (Nike con sangre humana real), desde apps que taxi-ean Ubers hasta subastas de Birkins destruidos, MSCHF convierte ideas absurdas en realidad tangible.
+            </p>
+
+            <p>
+                Cada drop es limitado, exclusivo y diseñado para generar conversacion. Algunos son productos fisicos, otros son experiencias digitales, apps o performances. Lo unico constante es que siempre generan debate sobre valor, autenticidad y los limites del arte comercial.
+            </p>
+
+            <p>
+                MSCHF ha sido demandado por Nike, ha colaborado con celebridades como Lil Nas X, ha creado apps descargadas millones de veces y ha vendido productos por millones de dolares. Todo mientras mantiene un anonimato casi total sobre quienes estan detras del proyecto.
+            </p>
+        </div>
+
+        <div class="stats-section">
+            <div class="stat-box">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Drops Lanzados</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">2016</div>
+                <div class="stat-label">Año Fundacion</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">Bi-Weekly</div>
+                <div class="stat-label">Frecuencia Drops</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Controversias</div>
+            </div>
+        </div>
+
+        <div class="manifesto-section">
+            <p class="manifesto-quote">
+                "No estamos haciendo productos. Estamos haciendo declaraciones sobre productos. No estamos vendiendo cosas. Estamos vendiendo ideas sobre cosas."
+            </p>
+            <p class="manifesto-author">— MSCHF</p>
+        </div>
+    </section>
+</body>
+</html>

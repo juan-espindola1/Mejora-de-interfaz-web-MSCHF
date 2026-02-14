@@ -1,0 +1,989 @@
+	<!DOCTYPE html>
+	<html lang="es">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Satan Shoes - MSCHF</title>
+			<img src="logo.png" alt="Vista 2" class="thumbnail" data-index="1">
+		<style>
+						* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				font-family: 'Courier New', monospace;
+				background: #000;
+				color: #fff;
+				line-height: 1.6;
+				overflow-x: hidden;
+			}
+
+			.header {
+				padding: 20px;
+				border-bottom: 2px solid #fff;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				position: relative;
+			}
+
+			.header h1 {
+				font-size: 2rem;
+				letter-spacing: 0.3rem;
+			}
+
+			.back-link {
+				color: #fff;
+				text-decoration: none;
+				padding: 10px 20px;
+				border: 2px solid #fff;
+				transition: all 0.3s ease;
+			}
+
+			.back-link:hover {
+				background: #fff;
+				color: #000;
+			}
+
+			.container {
+				max-width: 1400px;
+				margin: 0 auto;
+				padding: 60px 20px;
+			}
+
+			.product-layout {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 60px;
+				margin-bottom: 60px;
+			}
+
+			/* Galería de imágenes */
+			.gallery-section {
+				position: sticky;
+				top: 20px;
+				height: fit-content;
+			}
+
+			.main-image {
+				width: 100%;
+				height: 600px;
+				object-fit: cover;
+				border: 3px solid #fff;
+				margin-bottom: 20px;
+				transition: transform 0.3s ease;
+			}
+
+			.thumbnail-grid {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 15px;
+			}
+
+			.thumbnail {
+				width: 100%;
+				height: 120px;
+				object-fit: cover;
+				border: 3px solid #444;
+				cursor: pointer;
+				transition: all 0.3s ease;
+			}
+
+			.thumbnail:hover,
+			.thumbnail.active {
+				border-color: #fff;
+				transform: scale(1.05);
+			}
+
+			/* Info del producto */
+			.product-info {
+				position: relative;
+			}
+
+			.sold-out-banner {
+				background: #ff0000;
+				color: #fff;
+				padding: 20px;
+				font-size: 1.8rem;
+				font-weight: bold;
+				text-align: center;
+				letter-spacing: 0.2rem;
+				border: 3px solid #fff;
+				margin-bottom: 30px;
+				animation: pulse 2s infinite;
+				position: relative;
+				overflow: hidden;
+			}
+
+			@keyframes pulse {
+				0%, 100% {
+					transform: scale(1);
+				}
+				50% {
+					transform: scale(1.02);
+				}
+			}
+
+			.product-title {
+				font-size: 2.5rem;
+				margin-bottom: 15px;
+				text-transform: uppercase;
+				letter-spacing: 0.15rem;
+			}
+
+			.product-subtitle {
+				font-size: 1rem;
+				color: #888;
+				margin-bottom: 30px;
+				text-transform: uppercase;
+				letter-spacing: 0.1rem;
+			}
+
+			.price {
+				font-size: 3rem;
+				margin-bottom: 30px;
+				font-weight: bold;
+			}
+
+			.product-description {
+				font-size: 1rem;
+				line-height: 1.8;
+				margin-bottom: 40px;
+				padding: 25px;
+				background: #111;
+				border: 2px solid #333;
+			}
+
+			.specs-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 20px;
+				margin-bottom: 40px;
+			}
+
+			.spec-item {
+				padding: 20px;
+				border: 2px solid #333;
+				background: #111;
+				position: relative;
+			}
+
+			.spec-label {
+				font-size: 0.8rem;
+				color: #888;
+				text-transform: uppercase;
+				letter-spacing: 0.1rem;
+				margin-bottom: 8px;
+			}
+
+			.spec-value {
+				font-size: 1.2rem;
+				font-weight: bold;
+			}
+
+			/* Selector de talla */
+			.size-selector {
+				margin-bottom: 40px;
+			}
+
+			.size-label {
+				font-size: 1rem;
+				text-transform: uppercase;
+				letter-spacing: 0.1rem;
+				margin-bottom: 15px;
+				display: block;
+			}
+
+			.size-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+				gap: 10px;
+			}
+
+			.size-option {
+				padding: 15px;
+				border: 2px solid #444;
+				text-align: center;
+				cursor: not-allowed;
+				transition: all 0.3s ease;
+				background: #111;
+				opacity: 0.5;
+			}
+
+			/* Botones de acción */
+			.action-buttons {
+				display: flex;
+				gap: 15px;
+				margin-bottom: 30px;
+			}
+
+			.btn {
+				flex: 1;
+				padding: 20px;
+				font-family: 'Courier New', monospace;
+				font-size: 1.1rem;
+				font-weight: bold;
+				text-transform: uppercase;
+				letter-spacing: 0.15rem;
+				border: 3px solid #fff;
+				cursor: not-allowed;
+				transition: all 0.3s ease;
+				background: #333;
+				color: #666;
+				opacity: 0.5;
+			}
+
+			.btn-notify {
+				background: #fff;
+				color: #000;
+				cursor: pointer;
+				opacity: 1;
+			}
+
+			.btn-notify:hover {
+				background: #00ff00;
+				border-color: #00ff00;
+			}
+
+			/* Detalles adicionales */
+			.details-section {
+				border-top: 2px solid #333;
+				padding-top: 40px;
+			}
+
+			.detail-item {
+				margin-bottom: 30px;
+				padding: 25px;
+				border: 2px solid #333;
+				background: #111;
+			}
+
+			.detail-title {
+				font-size: 1.2rem;
+				margin-bottom: 15px;
+				text-transform: uppercase;
+				letter-spacing: 0.1rem;
+			}
+
+			.detail-content {
+				color: #ccc;
+				line-height: 1.8;
+			}
+
+			.detail-content ul {
+				list-style: none;
+				padding-left: 20px;
+			}
+
+			.detail-content li:before {
+				content: "? ";
+				margin-right: 10px;
+			}
+
+			/* Modal */
+			.modal {
+				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.95);
+				z-index: 1000;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.modal.active {
+				display: flex;
+			}
+
+			.modal-content {
+				background: #000;
+				border: 5px solid #fff;
+				padding: 50px;
+				max-width: 500px;
+				text-align: center;
+				position: relative;
+			}
+
+			.modal-close {
+				position: absolute;
+				top: 15px;
+				right: 20px;
+				font-size: 2rem;
+				cursor: pointer;
+				color: #fff;
+				border: none;
+				background: none;
+			}
+
+			.modal-title {
+				font-size: 2rem;
+				margin-bottom: 20px;
+				text-transform: uppercase;
+				letter-spacing: 0.2rem;
+			}
+
+			.modal-text {
+				font-size: 1rem;
+				margin-bottom: 30px;
+				color: #ccc;
+			}
+
+			.email-input {
+				width: 100%;
+				padding: 15px;
+				margin-bottom: 20px;
+				background: #111;
+				border: 2px solid #fff;
+				color: #fff;
+				font-family: 'Courier New', monospace;
+				font-size: 1rem;
+			}
+
+			.modal-btn {
+				width: 100%;
+				padding: 15px;
+				background: #fff;
+				color: #000;
+				border: none;
+				font-family: 'Courier New', monospace;
+				font-size: 1rem;
+				font-weight: bold;
+				text-transform: uppercase;
+				letter-spacing: 0.15rem;
+				cursor: pointer;
+				transition: all 0.3s ease;
+			}
+
+			.modal-btn:hover {
+				background: #00ff00;
+			}
+
+			.success-message {
+				color: #00ff00;
+				font-size: 1.2rem;
+				margin-top: 20px;
+				display: none;
+			}
+
+			.success-message.show {
+				display: block;
+			}
+
+			/* GLITCH EFFECTS */
+			@keyframes glitch-anim {
+				0% {
+					clip: rect(42px, 9999px, 44px, 0);
+					transform: skew(0.5deg);
+				}
+				5% {
+					clip: rect(12px, 9999px, 59px, 0);
+					transform: skew(0.1deg);
+				}
+				10% {
+					clip: rect(48px, 9999px, 29px, 0);
+					transform: skew(0.8deg);
+				}
+				15% {
+					clip: rect(26px, 9999px, 85px, 0);
+					transform: skew(0.3deg);
+				}
+				20% {
+					clip: rect(79px, 9999px, 12px, 0);
+					transform: skew(0.6deg);
+				}
+				25% {
+					clip: rect(33px, 9999px, 71px, 0);
+					transform: skew(0.2deg);
+				}
+				30% {
+					clip: rect(55px, 9999px, 40px, 0);
+					transform: skew(0.9deg);
+				}
+				100% {
+					clip: rect(67px, 9999px, 23px, 0);
+					transform: skew(0.4deg);
+				}
+			}
+
+			.glitch {
+				position: relative;
+			}
+
+			.glitch::before,
+			.glitch::after {
+				content: attr(data-text);
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+
+			.glitch::before {
+				animation: glitch-anim 2s infinite linear alternate-reverse;
+				color: #ff0000;
+				z-index: -1;
+			}
+
+			.glitch::after {
+				animation: glitch-anim 3s infinite linear alternate;
+				color: #00ff00;
+				z-index: -2;
+			}
+
+			/* Scanlines */
+			.scanlines {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				pointer-events: none;
+				z-index: 999;
+				background: repeating-linear-gradient(
+					0deg,
+					rgba(0, 0, 0, 0.15),
+					rgba(0, 0, 0, 0.15) 1px,
+					transparent 1px,
+					transparent 2px
+				);
+				display: none;
+			}
+
+			/* Overlay de ruido */
+			.noise-overlay {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				pointer-events: none;
+				z-index: 998;
+				opacity: 0.03;
+				background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)"/></svg>');
+			}
+
+			/* Mensaje críptico fullscreen */
+			.cryptic-message {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.95);
+				z-index: 9999;
+				display: none;
+				align-items: center;
+				justify-content: center;
+				pointer-events: none;
+			}
+
+			.cryptic-message.show {
+				display: flex;
+			}
+
+			.cryptic-text {
+				font-size: 4rem;
+				font-weight: bold;
+				text-align: center;
+				text-transform: uppercase;
+				letter-spacing: 0.5rem;
+				padding: 40px;
+				color: #ff0000;
+				text-shadow: 
+					0 0 10px #ff0000,
+					0 0 20px #ff0000,
+					0 0 30px #ff0000,
+					2px 2px 0 #00ff00,
+					-2px -2px 0 #0000ff;
+				animation: cryptic-glitch 0.5s infinite;
+			}
+
+			@keyframes cryptic-glitch {
+				0%, 100% {
+					transform: translate(0) scale(1);
+					filter: hue-rotate(0deg);
+				}
+				10% {
+					transform: translate(-5px, 5px) scale(1.02);
+					filter: hue-rotate(90deg);
+				}
+				20% {
+					transform: translate(5px, -5px) scale(0.98);
+					filter: hue-rotate(180deg);
+				}
+				30% {
+					transform: translate(-5px, -5px) scale(1.01);
+					filter: hue-rotate(270deg);
+				}
+				40% {
+					transform: translate(5px, 5px) scale(0.99);
+					filter: hue-rotate(360deg);
+				}
+				50% {
+					transform: translate(0) scale(1.03);
+					filter: hue-rotate(0deg);
+				}
+			}
+
+			/* Animación de texto glitchy */
+			@keyframes text-glitch {
+				0% {
+					transform: translate(0);
+				}
+				20% {
+					transform: translate(-2px, 2px);
+				}
+				40% {
+					transform: translate(-2px, -2px);
+				}
+				60% {
+					transform: translate(2px, 2px);
+				}
+				80% {
+					transform: translate(2px, -2px);
+				}
+				100% {
+					transform: translate(0);
+				}
+			}
+
+			.glitch-active {
+				animation: text-glitch 0.3s ease;
+			}
+
+			/* Efecto de interferencia en specs */
+			@keyframes interference {
+				0%, 100% {
+					transform: translateX(0);
+				}
+				25% {
+					transform: translateX(-3px);
+				}
+				50% {
+					transform: translateX(3px);
+				}
+				75% {
+					transform: translateX(-1px);
+				}
+			}
+
+			/* Responsive */
+			@media (max-width: 968px) {
+				.product-layout {
+					grid-template-columns: 1fr;
+					gap: 40px;
+				}
+
+				.gallery-section {
+					position: static;
+				}
+
+				.action-buttons {
+					flex-direction: column;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="noise-overlay"></div>
+		<div class="scanlines"></div>
+		<div class="cryptic-message" id="crypticMessage">
+			<div class="cryptic-text" id="crypticText"></div>
+		</div>
+
+		<header class="header">
+			<h1 class="glitch" data-text="MSCHF">MSCHF</h1>
+			<a href="mschf-prototype.html" class="back-link"> VOLVER</a>
+		</header>
+
+		<div class="container">
+			<div class="product-layout">
+				<!-- Galería de imágenes -->
+				<div class="gallery-section">
+					<img src="satan-shoes-1.jpg" alt="Satan Shoes" class="main-image" id="mainImage">
+					<div class="thumbnail-grid">
+						<img src="satan-shoes-1.jpg" alt="Vista 1" class="thumbnail active" data-index="0">
+						<img src="satan-shoes-2.jpg" alt="Vista 2" class="thumbnail" data-index="1">
+						<img src="satan-shoes-3.jpg" alt="Vista 3" class="thumbnail" data-index="2">
+						<img src="satan-shoes-4.jpg" alt="Vista 4" class="thumbnail" data-index="3">
+					</div>
+				</div>
+
+				<!-- Información del producto -->
+				<div class="product-info">
+					<div class="sold-out-banner">
+						 Llegaste tarde para perder tu dinero 
+					</div>
+
+					<h1 class="product-title glitch" data-text="Satan Shoes">Satan Shoes</h1>
+					<p class="product-subtitle">Nike Air Max 97 x MSCHF x Lil Nas X</p>
+
+					<div class="price glitch" data-text="USD $1,018">USD $1,018</div>
+
+					<div class="product-description">
+						Las Satan Shoes son Nike Air Max 97 customizadas en colaboracion con Lil Nas X. 
+						Cada par contiene 60cc de tinta roja y una gota de sangre humana real en la unidad 
+						de Air Max. Edicion limitada de 666 pares numerados individualmente.
+					</div>
+
+					<div class="specs-grid">
+						<div class="spec-item">
+							<div class="spec-label">Edicion</div>
+							<div class="spec-value">666 pares</div>
+						</div>
+						<div class="spec-item">
+							<div class="spec-label">Drop Date</div>
+							<div class="spec-value">29 Mar 2021</div>
+						</div>
+						<div class="spec-item">
+							<div class="spec-label">Colaboracion</div>
+							<div class="spec-value">Lil Nas X</div>
+						</div>
+						<div class="spec-item">
+							<div class="spec-label">Estado</div>
+							<div class="spec-value">Agotado</div>
+						</div>
+					</div>
+
+					<!-- Selector de talla -->
+					<div class="size-selector">
+						<label class="size-label">Seleccionar Talla (US)</label>
+						<div class="size-grid">
+							<div class="size-option">7</div>
+							<div class="size-option">7.5</div>
+							<div class="size-option">8</div>
+							<div class="size-option">8.5</div>
+							<div class="size-option">9</div>
+							<div class="size-option">9.5</div>
+							<div class="size-option">10</div>
+							<div class="size-option">10.5</div>
+							<div class="size-option">11</div>
+							<div class="size-option">11.5</div>
+							<div class="size-option">12</div>
+							<div class="size-option">13</div>
+						</div>
+					</div>
+
+					<!-- Botones de acción -->
+					<div class="action-buttons">
+						<button class="btn" disabled>AGREGAR AL CARRITO</button>
+						<button class="btn" disabled>COMPRAR AHORA</button>
+					</div>
+
+					<div class="action-buttons">
+						<button class="btn btn-notify" id="notifyBtn">NOTIFICARME DROPS SIMILARES</button>
+					</div>
+
+					<!-- Detalles adicionales -->
+					<div class="details-section">
+						<div class="detail-item">
+							<h3 class="detail-title">Características</h3>
+							<div class="detail-content">
+								<ul>
+									<li>Nike Air Max 97 customizadas</li>
+									<li>60cc de tinta roja en la suela Air Max</li>
+									<li>Una gota de sangre humana real</li>
+									<li>Pentagrama de bronce en cordones</li>
+									<li>Numeración individual: 1/666 - 666/666</li>
+									<li>Inscripción Lucas 10:18 en el costado</li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="detail-item">
+							<h3 class="detail-title">Historia del Drop</h3>
+							<div class="detail-content">
+								Lanzadas junto al video musical "Montero (Call Me By Your Name)" de Lil Nas X, 
+								las Satan Shoes causaron controversia global. Nike demandó a MSCHF y el drop fue 
+								detenido, pero los 666 pares ya habían sido vendidos en menos de un minuto.
+							</div>
+						</div>
+
+						<div class="detail-item">
+							<h3 class="detail-title">Nota Legal</h3>
+							<div class="detail-content">
+								Este producto está agotado y no se fabricarán unidades adicionales. 
+								MSCHF no está afiliado con Nike, Inc. Los productos pueden estar disponibles 
+								en mercados secundarios a precios variables.
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal de Notificación -->
+		<div class="modal" id="notifyModal">
+			<div class="modal-content">
+				<button class="modal-close" id="closeModal">×</button>
+				<h2 class="modal-title glitch" data-text="Stay Notified">Stay Notified</h2>
+				<p class="modal-text">
+					Te notificaremos cuando haya drops similares a Satan Shoes disponibles.
+				</p>
+				<input type="email" class="email-input" id="emailInput" placeholder="tu@email.com" required>
+				<button class="modal-btn" id="subscribeBtn">Suscribirme</button>
+				<div class="success-message" id="successMessage">
+					? ¡Suscripción exitosa!
+				</div>
+			</div>
+		</div>
+
+		<script>
+			// Galería de imágenes
+			const mainImage = document.getElementById('mainImage');
+			const thumbnails = document.querySelectorAll('.thumbnail');
+			const images = [
+				'satan-shoes-1.jpg',
+				'satan-shoes-2.jpg',
+				'satan-shoes-3.jpg',
+				'satan-shoes-4.jpg'
+			];
+
+			thumbnails.forEach((thumb, index) => {
+				thumb.addEventListener('click', function() {
+					thumbnails.forEach(t => t.classList.remove('active'));
+					this.classList.add('active');
+					mainImage.src = images[index];
+				});
+			});
+
+			// Modal de notificaciones
+			const notifyBtn = document.getElementById('notifyBtn');
+			const modal = document.getElementById('notifyModal');
+			const closeModal = document.getElementById('closeModal');
+			const subscribeBtn = document.getElementById('subscribeBtn');
+			const emailInput = document.getElementById('emailInput');
+			const successMessage = document.getElementById('successMessage');
+			let isModalOpen = false;
+
+			notifyBtn.addEventListener('click', () => {
+				modal.classList.add('active');
+				isModalOpen = true;
+				successMessage.classList.remove('show');
+				emailInput.value = '';
+			});
+
+			closeModal.addEventListener('click', () => {
+				modal.classList.remove('active');
+				isModalOpen = false;
+			});
+
+			modal.addEventListener('click', (e) => {
+				if (e.target === modal) {
+					modal.classList.remove('active');
+					isModalOpen = false;
+				}
+			});
+
+			subscribeBtn.addEventListener('click', () => {
+				const email = emailInput.value.trim();
+				
+				if (!email || !email.includes('@')) {
+					alert('Por favor ingresa un email válido');
+					return;
+				}
+
+				successMessage.classList.add('show');
+				
+				setTimeout(() => {
+					modal.classList.remove('active');
+					isModalOpen = false;
+					notifyBtn.textContent = '? Suscrito a Notificaciones';
+					notifyBtn.style.background = '#00ff00';
+					notifyBtn.style.borderColor = '#00ff00';
+					notifyBtn.style.pointerEvents = 'none';
+				}, 1500);
+			});
+
+			// EFECTOS GLITCH INTENSOS
+			const scanlines = document.querySelector('.scanlines');
+			const glitchTexts = ['ERROR', 'SOLD OUT', 'NO STOCK', 'ABORT', '666', 'DENIED', 'HACKED'];
+			const crypticMessage = document.getElementById('crypticMessage');
+			const crypticText = document.getElementById('crypticText');
+			
+			// Mensajes crípticos que aparecen cada 7 segundos
+			const crypticMessages = [
+				'666',
+				'OBEY',
+				'CONSUME',
+				'THEY LIVE',
+				'YOU ARE BEING WATCHED',
+				'SYSTEM FAILURE',
+				'NO ESCAPE',
+				'SOLD YOUR SOUL',
+				'ERROR 666',
+				'BLOOD MONEY',
+				'HAIL SATAN',
+				'CONFORMITY',
+				'CAPITALISM',
+				'BUY BUY BUY',
+				'NOTHING IS REAL',
+				'WAKE UP',
+				'CONTROLLED',
+				'TRUST NO ONE',
+				'THE END IS NEAR',
+				'CORRUPTED'
+			];
+
+			setInterval(() => {
+				if (!isModalOpen) {
+					const randomMessage = crypticMessages[Math.floor(Math.random() * crypticMessages.length)];
+					crypticText.textContent = randomMessage;
+					crypticMessage.classList.add('show');
+					
+					setTimeout(() => {
+						crypticMessage.classList.remove('show');
+					}, 1500);
+				}
+			}, 7000);
+
+			// Activar scanlines aleatoriamente
+			setInterval(() => {
+				if (!isModalOpen) {
+					scanlines.style.display = 'block';
+					setTimeout(() => {
+						scanlines.style.display = 'none';
+					}, Math.random() * 2000 + 1000);
+				}
+			}, 8000);
+
+			// Glitch en el banner SOLD OUT
+			const banner = document.querySelector('.sold-out-banner');
+			setInterval(() => {
+				if (!isModalOpen) {
+					const originalText = banner.textContent;
+					banner.textContent = '? ' + glitchTexts[Math.floor(Math.random() * glitchTexts.length)] + ' ?';
+					banner.style.background = '#000';
+					banner.style.color = '#ff0000';
+					
+					setTimeout(() => {
+						banner.textContent = originalText;
+						banner.style.background = '#ff0000';
+						banner.style.color = '#fff';
+					}, 400);
+				}
+			}, 4000);
+
+			// Glitch en specs
+			const specs = document.querySelectorAll('.spec-item');
+			setInterval(() => {
+				if (!isModalOpen) {
+					const randomSpec = specs[Math.floor(Math.random() * specs.length)];
+					randomSpec.style.animation = 'interference 0.3s';
+					randomSpec.style.borderColor = '#ff0000';
+					
+					setTimeout(() => {
+						randomSpec.style.animation = '';
+						randomSpec.style.borderColor = '#333';
+					}, 300);
+				}
+			}, 5000);
+
+			// Glitch en precio
+			const price = document.querySelector('.price');
+			const originalPrice = 'USD $1,018';
+			const glitchPrices = ['USD $666', 'USD $ERROR', 'USD $???', 'SOLD OUT'];
+			
+			setInterval(() => {
+				if (!isModalOpen) {
+					price.textContent = glitchPrices[Math.floor(Math.random() * glitchPrices.length)];
+					price.style.color = '#ff0000';
+					
+					setTimeout(() => {
+						price.textContent = originalPrice;
+						price.style.color = '#fff';
+					}, 300);
+				}
+			}, 7000);
+
+			// Parpadeo de elementos aleatorios
+			const glitchableElements = document.querySelectorAll('.detail-title, .size-label, .product-subtitle');
+			setInterval(() => {
+				if (!isModalOpen) {
+					const randomEl = glitchableElements[Math.floor(Math.random() * glitchableElements.length)];
+					randomEl.style.opacity = '0';
+					setTimeout(() => {
+						randomEl.style.opacity = '1';
+					}, 100);
+				}
+			}, 6000);
+
+			// Flash invertido ocasional
+			setInterval(() => {
+				if (!isModalOpen) {
+					document.body.style.transition = 'filter 0.1s';
+					document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+					setTimeout(() => {
+						document.body.style.filter = 'invert(1)';
+						setTimeout(() => {
+							document.body.style.filter = 'none';
+						}, 80);
+					}, 80);
+				}
+			}, 15000);
+
+			// Rotar imagen principal aleatoriamente
+			setInterval(() => {
+				if (!isModalOpen) {
+					mainImage.style.transform = `rotate(${Math.random() * 20 - 10}deg) scale(${0.95 + Math.random() * 0.1})`;
+					setTimeout(() => {
+						mainImage.style.transform = '';
+					}, 300);
+				}
+			}, 8000);
+
+			// Cambiar emojis de thumbnails ocasionalmente
+			setInterval(() => {
+				if (!isModalOpen) {
+					mainImage.style.filter = 'hue-rotate(180deg) saturate(3)';
+					
+					setTimeout(() => {
+						mainImage.style.filter = '';
+					}, 500);
+				}
+			}, 10000);
+
+			// Glitch en botones deshabilitados
+			const disabledBtns = document.querySelectorAll('.btn:disabled');
+			setInterval(() => {
+				if (!isModalOpen) {
+					disabledBtns.forEach(btn => {
+						const texts = ['OUT OF STOCK', 'NO DISPONIBLE', 'AGOTADO', '---'];
+						btn.textContent = texts[Math.floor(Math.random() * texts.length)];
+						btn.style.borderColor = '#ff0000';
+						
+						setTimeout(() => {
+							if (btn.textContent.includes('CART')) {
+								btn.textContent = 'AGREGAR AL CARRITO';
+							} else {
+								btn.textContent = 'COMPRAR AHORA';
+							}
+							btn.style.borderColor = '#fff';
+						}, 400);
+					});
+				}
+			}, 6000);
+
+			// Distorsión en detalles
+			const details = document.querySelectorAll('.detail-item');
+			setInterval(() => {
+				if (!isModalOpen) {
+					const randomDetail = details[Math.floor(Math.random() * details.length)];
+					randomDetail.classList.add('glitch-active');
+					randomDetail.style.borderColor = '#ff0000';
+					
+					setTimeout(() => {
+						randomDetail.classList.remove('glitch-active');
+						randomDetail.style.borderColor = '#333';
+					}, 300);
+				}
+			}, 9000);
+		</script>
+	</body>
+	</html>

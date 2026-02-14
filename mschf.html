@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSCHF Drops</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .header {
+            padding: 20px;
+            border-bottom: 2px solid #fff;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            letter-spacing: 0.3rem;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            padding: 10px 20px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav a:hover {
+            border: 2px solid #fff;
+            background: #fff;
+            color: #000;
+        }
+
+        .nav a.active {
+            border: 2px solid #fff;
+        }
+
+        .drops-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+        }
+
+        .drop-card {
+            border: 3px solid #fff;
+            padding: 0;
+            position: relative;
+            background: #000;
+            transition: transform 0.3s ease;
+        }
+
+        .drop-card:hover {
+            transform: scale(1.02);
+        }
+
+        .drop-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-bottom: 3px solid #fff;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .drop-content {
+            padding: 30px;
+        }
+
+        .drop-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+        }
+
+        .drop-description {
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ff0000;
+            color: #fff;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 0.15rem;
+            border: 3px solid #fff;
+            transform: rotate(-5deg);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.5);
+            animation: pulse 2s infinite;
+            line-height: 1.3;
+            text-align: center;
+        }
+
+        .status-badge.available {
+            background: #00ff00;
+            color: #000;
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.5);
+        }
+
+        .drop-number {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #00ff00;
+            color: #000;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 0.15rem;
+            border: 3px solid #fff;
+            transform: rotate(5deg);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.5);
+            animation: pulse-green 2s infinite;
+            line-height: 1.3;
+            text-align: center;
+        }
+
+        @keyframes pulse-green {
+            0%, 100% {
+                transform: rotate(5deg) scale(1);
+            }
+            50% {
+                transform: rotate(5deg) scale(1.05);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: rotate(-5deg) scale(1);
+            }
+            50% {
+                transform: rotate(-5deg) scale(1.05);
+            }
+        }
+
+        .drop-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #111;
+            border: 2px solid #333;
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-label {
+            font-size: 0.7rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+        }
+
+        .info-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .notify-btn {
+            width: 100%;
+            padding: 20px;
+            background: #fff;
+            color: #000;
+            border: none;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid #fff;
+        }
+
+        .notify-btn:hover {
+            background: #000;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .notify-btn.subscribed {
+            background: #00ff00;
+            color: #000;
+            border-color: #00ff00;
+        }
+
+        .notify-btn.available {
+            background: #00ff00;
+            color: #000;
+            border-color: #00ff00;
+        }
+
+        .notify-btn.available:hover {
+            background: #000;
+            color: #00ff00;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #000;
+            border: 5px solid #fff;
+            padding: 50px;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #fff;
+            border: none;
+            background: none;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+        }
+
+        .modal-text {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+
+        .email-input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            background: #111;
+            border: 2px solid #fff;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+        }
+
+        .modal-btn {
+            width: 100%;
+            padding: 15px;
+            background: #fff;
+            color: #000;
+            border: none;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn:hover {
+            background: #00ff00;
+        }
+
+        .success-message {
+            color: #00ff00;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="logo.png" alt="MSCHF" class="logo">
+        <nav class="nav">
+            <a href="inicio.html">Inicio</a>
+            <a href="mschf.html" class="active">Drops Recientes</a>
+            <a href="archivo.html">Archivo Historico</a>
+            <a href="about.html">Sobre MSCHF</a>
+        </nav>
+    </header>
+
+    <div class="drops-container">
+        <!-- Satan Shoes -->
+        <div class="drop-card" data-drop="satan" style="cursor: pointer;" onclick="window.location.href='satan-compra.html'">
+            <div class="drop-number">DROP #44</div>
+            <div class="status-badge">LO SIENTO,<br>LLEGASTE TARDE</div>
+            <img src="satan.jpg" alt="Satan Shoes" class="drop-image">
+            <div class="drop-content">
+                <h2 class="drop-title">Satan Shoes</h2>
+                <p class="drop-description">Nike Air Max 97 customizadas con una gota de sangre humana real. Edicion limitada de 666 pares.</p>
+                
+                <div class="drop-info">
+                    <div class="info-item">
+                        <div class="info-label">Precio</div>
+                        <div class="info-value">$1,018</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Unidades</div>
+                        <div class="info-value">666</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Drop Date</div>
+                        <div class="info-value">Mar 2021</div>
+                    </div>
+                </div>
+
+                <button class="notify-btn" data-shoe="Satan Shoes" onclick="event.stopPropagation();">
+                    Notificarme Drops Similares
+                </button>
+            </div>
+        </div>
+
+        <!-- Jesus Shoes -->
+        <div class="drop-card" data-drop="jesus">
+            <div class="drop-number">DROP #7</div>
+            <div class="status-badge">LO SIENTO,<br>LLEGASTE TARDE</div>
+            <img src="jesus.jpg" alt="Jesus Shoes" class="drop-image">
+            <div class="drop-content">
+                <h2 class="drop-title">Jesus Shoes</h2>
+                <p class="drop-description">Nike Air Max 97 con agua bendita del rio Jordan en la suela. Literalmente camina sobre el agua.</p>
+                
+                <div class="drop-info">
+                    <div class="info-item">
+                        <div class="info-label">Precio</div>
+                        <div class="info-value">$1,425</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Unidades</div>
+                        <div class="info-value">24</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Drop Date</div>
+                        <div class="info-value">Oct 2019</div>
+                    </div>
+                </div>
+
+                <button class="notify-btn" data-shoe="Jesus Shoes">
+                    Notificarme Drops Similares
+                </button>
+            </div>
+        </div>
+
+        <!-- Times Newer Roman - DISPONIBLE -->
+        <div class="drop-card" data-drop="timesnewer" style="cursor: pointer;" onclick="window.location.href='times-compra.html'">
+            <div class="drop-number">DROP #127</div>
+            <div class="status-badge available">DISPONIBLE<br>AHORA</div>
+            <img src="times.png" alt="Times Newer Roman" class="drop-image">
+            <div class="drop-content">
+                <h2 class="drop-title">Times Newer Roman</h2>
+                <p class="drop-description">Una fuente tipográfica que es un 5% más ancha que Times New Roman. Alarga tus ensayos sin que nadie se de cuenta.</p>
+                
+                <div class="drop-info">
+                    <div class="info-item">
+                        <div class="info-label">Precio</div>
+                        <div class="info-value">FREE</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Unidades</div>
+                        <div class="info-value">∞</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Drop Date</div>
+                        <div class="info-value">Oct 2024</div>
+                    </div>
+                </div>
+
+                <button class="notify-btn available" data-shoe="Times Newer Roman" onclick="event.stopPropagation();">
+                    Descargar Ahora
+                </button>
+            </div>
+        </div>
+
+        <!-- Eat The Rich -->
+        <div class="drop-card" data-drop="eat">
+            <div class="drop-number">DROP #81</div>
+            <div class="status-badge">LO SIENTO,<br>LLEGASTE TARDE</div>
+            <img src="eat.jpg" alt="Eat The Rich Popsicles" class="drop-image">
+            <div class="drop-content">
+                <h2 class="drop-title">Eat The Rich</h2>
+                <p class="drop-description">Paletas de helado con forma de billonarios iconicos. Literalmente come a los ricos!</p>
+                
+                <div class="drop-info">
+                    <div class="info-item">
+                        <div class="info-label">Precio</div>
+                        <div class="info-value">$10</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Unidades</div>
+                        <div class="info-value">Limited</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Drop Date</div>
+                        <div class="info-value">Jul 2022</div>
+                    </div>
+                </div>
+
+                <button class="notify-btn" data-shoe="Eat The Rich">
+                    Notificarme Drops Similares
+                </button>
+            </div>
+        </div>
+
+        <!-- Microscopic Handbag -->
+        <div class="drop-card" data-drop="handbag">
+            
+            <div class="status-badge">LO SIENTO,<br>LLEGASTE TARDE</div>
+            <img src="handbag.jpg" alt="Microscopic Handbag" class="drop-image">
+            <div class="drop-content">
+                <h2 class="drop-title">Microscopic Handbag</h2>
+                <p class="drop-description">Una cartera Louis Vuitton del tamaño de un grano de sal. Necesitas un microscopio para verla. Arte portátil microscópico.</p>
+                
+                <div class="drop-info">
+                    <div class="info-item">
+                        <div class="info-label">Precio</div>
+                        <div class="info-value">$63,750</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Unidades</div>
+                        <div class="info-value">1</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Drop Date</div>
+                        <div class="info-value">Jun 2023</div>
+                    </div>
+                </div>
+
+                <button class="notify-btn" data-shoe="Microscopic Handbag">
+                    Notificarme Drops Similares
+                </button>
+            </div>
+        </div>
+
+        <!-- Cooooookies -->
+        <div class="drop-card" data-drop="cookies">
+            <div class="drop-number">DROP #46</div>
+            <div class="status-badge">LO SIENTO,<br>LLEGASTE TARDE</div>
+            <img src="cookies.png" alt="Cooooookies" class="drop-image">
+            <div class="drop-content">
+                <h2 class="drop-title">Cooooookies</h2>
+                <p class="drop-description">Competencia epica: acepta mas cookies de navegador que nadie y gana 100 libras de galletas reales.</p>
+                
+                <div class="drop-info">
+                    <div class="info-item">
+                        <div class="info-label">Precio</div>
+                        <div class="info-value">FREE</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Unidades</div>
+                        <div class="info-value">1 Winner</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Drop Date</div>
+                        <div class="info-value">May 2021</div>
+                    </div>
+                </div>
+
+                <button class="notify-btn" data-shoe="Cooooookies">
+                    Notificarme Drops Similares
+                </button>
+            </div>
+        </div>
+
+        <!-- Big Red Boot -->
+        <div class="drop-card" data-drop="bigredboot">
+            <div class="drop-number">DROP #84</div>
+            <div class="status-badge">LO SIENTO,<br>LLEGASTE TARDE</div>
+            <img src="big-red-boot.png" alt="Big Red Boot" class="drop-image">
+            <div class="drop-content">
+                <h2 class="drop-title">Big Red Boot</h2>
+                <p class="drop-description">Botas de caricatura gigantes traidas a la vida real. Tan absurdas que todos las quieren.</p>
+                
+                <div class="drop-info">
+                    <div class="info-item">
+                        <div class="info-label">Precio</div>
+                        <div class="info-value">$350</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Unidades</div>
+                        <div class="info-value">Limited</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Drop Date</div>
+                        <div class="info-value">Feb 2023</div>
+                    </div>
+                </div>
+
+                <button class="notify-btn" data-shoe="Big Red Boot">
+                    Notificarme Drops Similares
+                </button>
+            </div>
+        </div>
+
+        <!-- Blur -->
+        <div class="drop-card" data-drop="blur">
+            <div class="drop-number">DROP #95</div>
+            <div class="status-badge available">DISPONIBLE<br>AHORA</div>
+            <img src="blur.png" alt="Blur" class="drop-image">
+            <div class="drop-content">
+                <h2 class="drop-title">Blur</h2>
+                <p class="drop-description">Una app que desenfoca automáticamente los pobres de tus fotos. Crítica brutal a la desigualdad y la invisibilización social.</p>
+                
+                <div class="drop-info">
+                    <div class="info-item">
+                        <div class="info-label">Precio</div>
+                        <div class="info-value">FREE</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Unidades</div>
+                        <div class="info-value">App</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Drop Date</div>
+                        <div class="info-value">Nov 2022</div>
+                    </div>
+                </div>
+
+                <button class="notify-btn" data-shoe="Blur">
+                    Notificarme Drops Similares
+                </button>
+            </div>
+        </div>
+
+        <!-- The Persistence of Chaos -->
+       <div class="drop-card" data-drop="chaos" style="cursor: pointer;" onclick="window.location.href='thechaos.html'">
+            <div class="drop-number">DROP #28</div>
+            <div class="status-badge">LO SIENTO,<br>LLEGASTE TARDE</div>
+            <img src="chaos.jpg" alt="The Persistence of Chaos" class="drop-image">
+            <div class="drop-content">
+                <h2 class="drop-title">The Persistence of Chaos</h2>
+                <p class="drop-description">Una laptop con los 6 virus más peligrosos de la historia instalados. WannaCry, ILOVEYOU, MyDoom. Arte digital mortal.</p>
+                
+                <div class="drop-info">
+                    <div class="info-item">
+                        <div class="info-label">Precio</div>
+                        <div class="info-value">$1,345,000</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Unidades</div>
+                        <div class="info-value">1</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Drop Date</div>
+                        <div class="info-value">May 2019</div>
+                    </div>
+                </div>
+
+                <button class="notify-btn" data-shoe="The Persistence of Chaos">
+                    Notificarme Drops Similares
+                </button>
+            </div>
+        </div>
+
+        <!-- Heart 2 Electric Boogaloo -->
+        <div class="drop-card" data-drop="boogaloo" style="cursor: pointer;" onclick="window.location.href='bogaloo-compra.html'">
+            <div class="drop-number">DROP #69</div>
+            <div class="status-badge">LO SIENTO,<br>LLEGASTE TARDE</div>
+            <img src="bogaloo.png" alt="Heart 2 Electric Boogaloo" class="drop-image">
+            <div class="drop-content">
+                <h2 class="drop-title">Heart 2 Electric Boogaloo</h2>
+                <p class="drop-description">Un desfibrilador real para curar corazones rotos. Literalmente reinicia tu corazon, fisica y emocionalmente.</p>
+                
+                <div class="drop-info">
+                    <div class="info-item">
+                        <div class="info-label">Precio</div>
+                        <div class="info-value">$2,140</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Unidades</div>
+                        <div class="info-value">4</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Drop Date</div>
+                        <div class="info-value">Feb 2022</div>
+                    </div>
+                </div>
+
+                <button class="notify-btn" data-shoe="Heart 2 Electric Boogaloo" onclick="event.stopPropagation();">
+                    Notificarme Drops Similares
+                </button>
+            </div>
+        </div>
+
+  
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Notificacion -->
+    <div class="modal" id="notifyModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <h2 class="modal-title">Stay Notified</h2>
+            <p class="modal-text" id="modalDescription">
+                Te notificaremos cuando haya drops similares disponibles.
+            </p>
+            <input type="email" class="email-input" id="emailInput" placeholder="tu@email.com" required>
+            <button class="modal-btn" id="subscribeBtn">Suscribirme</button>
+            <div class="success-message" id="successMessage">
+                &#10003; Suscripcion exitosa!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const notifyButtons = document.querySelectorAll('.notify-btn');
+        const modal = document.getElementById('notifyModal');
+        const closeModal = document.getElementById('closeModal');
+        const subscribeBtn = document.getElementById('subscribeBtn');
+        const emailInput = document.getElementById('emailInput');
+        const successMessage = document.getElementById('successMessage');
+        const modalDescription = document.getElementById('modalDescription');
+        
+        let currentShoe = '';
+        const subscriptions = {};
+
+        notifyButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                currentShoe = this.getAttribute('data-shoe');
+                
+                if (subscriptions[currentShoe]) {
+                    return;
+                }
+                
+                modalDescription.textContent = `Te notificaremos cuando haya drops similares a ${currentShoe} disponibles.`;
+                modal.classList.add('active');
+                successMessage.classList.remove('show');
+                emailInput.value = '';
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        subscribeBtn.addEventListener('click', () => {
+            const email = emailInput.value.trim();
+            
+            if (!email || !email.includes('@')) {
+                alert('Por favor ingresa un email valido');
+                return;
+            }
+
+            subscriptions[currentShoe] = email;
+            
+            successMessage.classList.add('show');
+            
+            setTimeout(() => {
+                modal.classList.remove('active');
+                
+                const btn = document.querySelector(`[data-shoe="${currentShoe}"]`);
+                btn.textContent = '\u2713 Suscrito a Notificaciones';
+                btn.classList.add('subscribed');
+                btn.style.pointerEvents = 'none';
+            }, 1500);
+        });
+
+        // GLITCH EFFECTS INTENSOS
+        const glitchTexts = ['ERROR 404', 'SYSTEM FAILURE', 'GLITCH.EXE', 'ABORT', '???', 'CORRUPTED', 'NO DATA', 'HACKED'];
+        
+        // Crear overlay de glitch
+        const glitchOverlay = document.createElement('div');
+        glitchOverlay.className = 'screen-glitch';
+        document.body.appendChild(glitchOverlay);
+        
+        // Cambiar texto de botones agresivamente (EXCEPTO botones disponibles)
+        setInterval(() => {
+            notifyButtons.forEach(btn => {
+                if (!btn.classList.contains('subscribed') && !btn.classList.contains('available')) {
+                    const originalText = btn.getAttribute('data-original-text') || btn.textContent;
+                    if (!btn.getAttribute('data-original-text')) {
+                        btn.setAttribute('data-original-text', originalText);
+                    }
+                    
+                    const randomText = glitchTexts[Math.floor(Math.random() * glitchTexts.length)];
+                    btn.textContent = randomText;
+                    btn.style.background = '#ff0000';
+                    btn.style.color = '#000';
+                    
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.background = '#fff';
+                        btn.style.color = '#000';
+                    }, 500);
+                }
+            });
+        }, 3000);
+
+        // Glitch visual INTENSO en cards
+        setInterval(() => {
+            const cards = document.querySelectorAll('.drop-card');
+            const randomCard = cards[Math.floor(Math.random() * cards.length)];
+            
+            randomCard.classList.add('glitch-active');
+            setTimeout(() => {
+                randomCard.classList.remove('glitch-active');
+            }, 800);
+        }, 4000);
+
+        // Hacer que los badges se muevan MUCHO
+        setInterval(() => {
+            const badges = document.querySelectorAll('.status-badge, .drop-number');		
